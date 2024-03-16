@@ -14,9 +14,9 @@ export TERRAFORM_PROVIDER_DOWNLOAD_URL_PREFIX ?= ${TERRAFORM_PROVIDER_REPO}/rele
 export TERRAFORM_NATIVE_PROVIDER_BINARY ?= ${TERRAFORM_PROVIDER_DOWNLOAD_NAME}_${TERRAFORM_PROVIDER_VERSION}
 export TERRAFORM_DOCS_PATH ?= docs/resources
 
-export REGISTRY_ORGS ?= xpkg.upbound.io/tampakrap
-export XPKG_REG_ORGS ?= xpkg.upbound.io/tampakrap
-export XPKG_REG_ORGS_NO_PROMOTE ?= xpkg.upbound.io/tampakrap
+#export REGISTRY_ORGS ?= xpkg.upbound.io/tampakrap
+#export XPKG_REG_ORGS ?= xpkg.upbound.io/tampakrap
+#export XPKG_REG_ORGS_NO_PROMOTE ?= xpkg.upbound.io/tampakrap
 
 PLATFORMS ?= linux_amd64 linux_arm64
 
@@ -62,17 +62,17 @@ UPTEST_VERSION = v0.5.0
 # ====================================================================================
 # Setup Images
 
-REGISTRY_ORGS ?= xpkg.upbound.io/upbound
+REGISTRY_ORGS ?= xpkg.upbound.io/tampakrap
 IMAGES = $(PROJECT_NAME)
 -include build/makelib/imagelight.mk
 
 # ====================================================================================
 # Setup XPKG
 
-XPKG_REG_ORGS ?= xpkg.upbound.io/upbound
+XPKG_REG_ORGS ?= xpkg.upbound.io/tampakrap
 # NOTE(hasheddan): skip promoting on xpkg.upbound.io as channel tags are
 # inferred.
-XPKG_REG_ORGS_NO_PROMOTE ?= xpkg.upbound.io/upbound
+XPKG_REG_ORGS_NO_PROMOTE ?= xpkg.upbound.io/tampakrap
 XPKGS = $(PROJECT_NAME)
 -include build/makelib/xpkg.mk
 
