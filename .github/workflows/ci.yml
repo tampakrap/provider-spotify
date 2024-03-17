@@ -23,6 +23,7 @@ env:
 jobs:
   publish-artifacts:
     runs-on: ubuntu-22.04
+    steps:
       - name: Login to Upbound
         uses: docker/login-action@v2
         if: env.UPBOUND_MARKETPLACE_PUSH_ROBOT_USR != ''
