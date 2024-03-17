@@ -53,8 +53,8 @@ jobs:
 
       - run: make build.init
 
-      - name: Login to Upbound via up
-        run: .cache/tools/linux_x86_64/up-v0.18.0 login -t ${{ secrets.UPBOUND_MARKETPLACE_PUSH_ROBOT_PSW }}
+      - name: Login to Upbound via up login
+        run: make upbound.login TOKEN=${{ secrets.UPBOUND_MARKETPLACE_PUSH_ROBOT_PSW }}
 
       - run: .cache/tools/linux_x86_64/up-v0.18.0 --help
       - run: .cache/tools/linux_x86_64/up-v0.18.0 profile list

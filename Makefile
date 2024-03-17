@@ -163,6 +163,9 @@ run: go.build
 	@# To see other arguments that can be provided, run the command with --help instead
 	UPBOUND_CONTEXT="local" $(GO_OUT_DIR)/provider --debug
 
+upbound.login:
+	@$(UP) login -t $(TOKEN)
+
 # ====================================================================================
 # End to End Testing
 CROSSPLANE_NAMESPACE = upbound-system
