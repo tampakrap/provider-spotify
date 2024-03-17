@@ -32,4 +32,4 @@ jobs:
           username: ${{ secrets.UPBOUND_MARKETPLACE_PUSH_ROBOT_USR }}
           password: ${{ secrets.UPBOUND_MARKETPLACE_PUSH_ROBOT_PSW }}
 
-      -  run: up repo list
+      -  run: echo ${GITHUB_REF##*/}
