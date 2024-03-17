@@ -52,8 +52,8 @@ jobs:
         run: git fetch --prune --unshallow
 
       - run: make build.init
-      - run: ls -la .cache/tools/
-      - run: up repo list
+      - run: .cache/tools/linux_x86_64/up-v0.18.0 --help
+      - run: .cache/tools/linux_x86_64/up-v0.18.0 repo list
 
       #- name: Setup Go
       #  uses: actions/setup-go@6edd4406fa81c3da01a34fa6f6343087c207a568 # v3
