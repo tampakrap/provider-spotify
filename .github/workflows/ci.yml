@@ -90,7 +90,7 @@ jobs:
           name: output
           path: _output/**
 
-      - name: up repo list
+      - run: up repo list
 
       - name: Publish Artifacts
         run: make publish BRANCH_NAME=${GITHUB_REF##*/}
