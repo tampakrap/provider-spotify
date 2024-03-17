@@ -52,7 +52,7 @@ jobs:
         run: git fetch --prune --unshallow
 
       - run: make build.init
-      - run: up --help
+      - run: ls -la .cache/tools/
       - run: up repo list
 
       #- name: Setup Go
