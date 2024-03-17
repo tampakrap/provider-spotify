@@ -35,14 +35,16 @@ jobs:
       #    version: ${{ env.DOCKER_BUILDX_VERSION }}
       #    install: true
 
-      - name: Login to Upbound
-        uses: docker/login-action@e92390c5fb421da1463c202d546fed0ec5c39f20 # v3
-        if: env.UPBOUND_MARKETPLACE_PUSH_ROBOT_USR != ''
-        with:
-          registry: xpkg.upbound.io
-          username: ${{ secrets.UPBOUND_MARKETPLACE_PUSH_ROBOT_USR }}
-          password: ${{ secrets.UPBOUND_MARKETPLACE_PUSH_ROBOT_PSW }}
+      #- name: Login to Upbound
+      #  uses: docker/login-action@e92390c5fb421da1463c202d546fed0ec5c39f20 # v3
+      #  if: env.UPBOUND_MARKETPLACE_PUSH_ROBOT_USR != ''
+      #  with:
+      #    registry: xpkg.upbound.io
+      #    username: ${{ secrets.UPBOUND_MARKETPLACE_PUSH_ROBOT_USR }}
+      #    password: ${{ secrets.UPBOUND_MARKETPLACE_PUSH_ROBOT_PSW }}
 
+      - name: Login to Upbound via up
+        run: .cache/tools/linux_x86_64/up-v0.18.0 login -t ${{ secrets.UPBOUND_MARKETPLACE_PUSH_ROBOT_PSW }}
       - name: Checkout
         uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
         with:
