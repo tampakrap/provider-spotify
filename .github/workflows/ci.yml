@@ -36,7 +36,7 @@ jobs:
       #    install: true
 
       - name: Login to Upbound
-        uses: docker/login-action@v1
+        uses: docker/login-action@v2
         if: env.UPBOUND_MARKETPLACE_PUSH_ROBOT_USR != ''
         with:
           registry: xpkg.upbound.io
@@ -52,7 +52,6 @@ jobs:
         run: git fetch --prune --unshallow
 
       - run: make build.init
-      - run: ls -la .up
       - run: .cache/tools/linux_x86_64/up-v0.18.0 --help
       - run: .cache/tools/linux_x86_64/up-v0.18.0 profile list
       - run: .cache/tools/linux_x86_64/up-v0.18.0 repo list
