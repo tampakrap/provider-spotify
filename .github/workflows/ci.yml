@@ -24,16 +24,16 @@ jobs:
   publish-artifacts:
     runs-on: ubuntu-22.04
     steps:
-      - name: Setup QEMU
-        uses: docker/setup-qemu-action@2b82ce82d56a2a04d2637cd93a637ae1b359c0a7 # v2
-        with:
-          platforms: all
-
-      - name: Setup Docker Buildx
-        uses: docker/setup-buildx-action@v2
-        with:
-          version: ${{ env.DOCKER_BUILDX_VERSION }}
-          install: true
+      #- name: Setup QEMU
+      #  uses: docker/setup-qemu-action@2b82ce82d56a2a04d2637cd93a637ae1b359c0a7 # v2
+      #  with:
+      #    platforms: all
+      #
+      #- name: Setup Docker Buildx
+      #  uses: docker/setup-buildx-action@v2
+      #  with:
+      #    version: ${{ env.DOCKER_BUILDX_VERSION }}
+      #    install: true
 
       - name: Login to Upbound
         uses: docker/login-action@v1
@@ -51,46 +51,50 @@ jobs:
       - name: Fetch History
         run: git fetch --prune --unshallow
 
-      - name: Setup Go
-        uses: actions/setup-go@6edd4406fa81c3da01a34fa6f6343087c207a568 # v3
-        with:
-          go-version: ${{ env.GO_VERSION }}
-
-      - name: Find the Go Build Cache
-        id: go
-        run: echo "cache=$(make go.cachedir)" >> $GITHUB_OUTPUT
-
-      - name: Cache the Go Build Cache
-        uses: actions/cache@v3
-        with:
-          path: ${{ steps.go.outputs.cache }}
-          key: ${{ runner.os }}-build-publish-artifacts-${{ hashFiles('**/go.sum') }}
-          restore-keys: ${{ runner.os }}-build-publish-artifacts-
-
-      - name: Cache Go Dependencies
-        uses: actions/cache@v3
-        with:
-          path: .work/pkg
-          key: ${{ runner.os }}-pkg-${{ hashFiles('**/go.sum') }}
-          restore-keys: ${{ runner.os }}-pkg-
-
-      - name: Vendor Dependencies
-        run: make vendor vendor.check
-
-      - name: Build Artifacts
-        run: make -j2 build.all
-        env:
-          # We're using docker buildx, which doesn't actually load the images it
-          # builds by default. Specifying --load does so.
-          BUILD_ARGS: "--load"
-
-      - name: Upload Artifacts to GitHub
-        uses: actions/upload-artifact@a8a3f3ad30e3422c9c7b888a15615d19a852ae32 #v3
-        with:
-          name: output
-          path: _output/**
-
+      - run: make build.init
+      - run: up --help
       - run: up repo list
 
-      - name: Publish Artifacts
-        run: make publish BRANCH_NAME=${GITHUB_REF##*/}
+      #- name: Setup Go
+      #  uses: actions/setup-go@6edd4406fa81c3da01a34fa6f6343087c207a568 # v3
+      #  with:
+      #    go-version: ${{ env.GO_VERSION }}
+      #
+      #- name: Find the Go Build Cache
+      #  id: go
+      #  run: echo "cache=$(make go.cachedir)" >> $GITHUB_OUTPUT
+      #
+      #- name: Cache the Go Build Cache
+      #  uses: actions/cache@v3
+      #  with:
+      #    path: ${{ steps.go.outputs.cache }}
+      #    key: ${{ runner.os }}-build-publish-artifacts-${{ hashFiles('**/go.sum') }}
+      #    restore-keys: ${{ runner.os }}-build-publish-artifacts-
+      #
+      #- name: Cache Go Dependencies
+      #  uses: actions/cache@v3
+      #  with:
+      #    path: .work/pkg
+      #    key: ${{ runner.os }}-pkg-${{ hashFiles('**/go.sum') }}
+      #    restore-keys: ${{ runner.os }}-pkg-
+      #
+      #- name: Vendor Dependencies
+      #  run: make vendor vendor.check
+      #
+      #- name: Build Artifacts
+      #  run: make -j2 build.all
+      #  env:
+      #    # We're using docker buildx, which doesn't actually load the images it
+      #    # builds by default. Specifying --load does so.
+      #    BUILD_ARGS: "--load"
+      #
+      #- name: Upload Artifacts to GitHub
+      #  uses: actions/upload-artifact@a8a3f3ad30e3422c9c7b888a15615d19a852ae32 #v3
+      #  with:
+      #    name: output
+      #    path: _output/**
+      #
+      #- run: up repo list
+      #
+      #- name: Publish Artifacts
+      #  run: make publish BRANCH_NAME=${GITHUB_REF##*/}
