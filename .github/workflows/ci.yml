@@ -52,7 +52,9 @@ jobs:
         run: git fetch --prune --unshallow
 
       - run: make build.init
+      - run: ls -la .up
       - run: .cache/tools/linux_x86_64/up-v0.18.0 --help
+      - run: .cache/tools/linux_x86_64/up-v0.18.0 profile list
       - run: .cache/tools/linux_x86_64/up-v0.18.0 repo list
 
       #- name: Setup Go
